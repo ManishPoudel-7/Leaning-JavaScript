@@ -1,0 +1,1 @@
+const final = arr1.flat(2)  
