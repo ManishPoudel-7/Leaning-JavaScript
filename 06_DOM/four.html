@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body style ="background-color: #212121; color: white;">
+    <ul class="language">
+        <li>JavaScript</li>
+    </ul>
+
+</body>
+<script>
+    function addLang(i){
+       const li = document.createElement('li')      // less optimized whole tree is traversed
+       li.innerText = i
+       document.querySelector('.language').appendChild(li)
+    } 
+
+    addLang('Python')
+    addLang('TypeScript')
+
+    function addoptiLang(langName){
+        const li  = document.createElement('li')    /// optimized
+        li.appendChild(document.createTextNode(langName))
+        document.querySelector('.language').appendChild(li)
+    }
+    addoptiLang('CPP')
+
+
+    // Edit
+
+    const secondLang =  document.querySelector("li:nth-child(2)") 
+    // secondLang.innerHTML ="Mojo"    // Not optimized
+    const li = document.createElement('li')
+    li.textContent = "R"
+    secondLang.replaceWith(li)
+
+    // Edit
+
+    const firstLang = document.querySelector("li:first-child")
+    firstLang.outerHTML = "<li> Docker </li>"
+
+    // remove
+    const removeLast = document.querySelector('li:last-child')
+    removeLast.remove()
+</script>
+</html>
