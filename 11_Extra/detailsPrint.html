@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>User Information</h1>
+    <form name="myForm">
+        Name : <input type="text" name="name"><br><br>
+        Password : <input type="password" name="pass"><br><br>
+        Age : <input type="number" name="age"><br><br>
+        Gender : 
+        <input type="radio" name="gender" value="Male">Male
+        <input type="radio" name="gender" value="Female">Female
+        <input type="radio" name="gender" value="Others">Others<br><br>
+        Area of Interest : 
+        <input type="checkbox" name="interest" value="Sports">Sports
+        <input type="checkbox" name="interest" value="Travel">Travel
+        <input type="checkbox" name="interest" value="Music">Music
+        <input type="checkbox" name="interest" value="Food">Food<br><br>
+        Date of Birth : <input type="date" name="date"><br><br>
+        Choose your city : 
+        <select name="city">
+            <option value="Anandpur">Anandpur</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Delhi">Delhi</option>
+        </select><br><br>
+        Choose your courses: 
+        <select name="course" multiple>
+            <option value="Maths">Maths</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Biology">Biology</option>
+            <option value="English">English</option>
+        </select><br><br>
+    </form><br><br>
+    <button type="button" onclick="display()">Submit</button>
+    <div id="result"></div>
+</body>
+
+<script>
+    function display(){
+        var uname = document.myForm.name.value;
+        var pass = document.myForm.pass.value;
+        var age = document.myForm.age.value;
+        var gender = document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : "Not Selected";
+        var dob = document.myForm.date.value;
+        
+        // Area of Interest
+        var interests = [];
+        var interestCheckboxes = document.getElementsByName('interest');
+        for (var i = 0; i < interestCheckboxes.length; i++) {
+            if (interestCheckboxes[i].checked) {
+                interests.push(interestCheckboxes[i].value);
+            }
+        }   
+        
+        var city = document.myForm.city.value;
+        
+        // Courses
+        var courses = [];
+        var courseOptions = document.myForm.course.selectedOptions;
+        for (var i = 0; i < courseOptions.length; i++) {
+            courses.push(courseOptions[i].value);
+        }
+
+        // Displaying the results
+        var resultText = `
+            <strong>Name:</strong> ${uname} <br>
+            <strong>Password:</strong> ${pass} <br>
+            <strong>Age:</strong> ${age} <br>
+            <strong>Date of Birth:</strong> ${dob} <br>
+            <strong>Gender:</strong> ${gender} <br>
+            <strong>Interests:</strong> ${interests.length > 0 ? interests.join(', ') : 'None'} <br>
+            <strong>City:</strong> ${city} <br>
+            <strong>Courses:</strong> ${courses.length > 0 ? courses.join(', ') : 'None'} <br>
+        `;
+
+        // Displaying the result in the 'result' div
+        document.getElementById('result').innerHTML = resultText;
+    }
+</script>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+</head>
+<body>
+    <form name="myForm" onsubmit="return(validate())">
+        Name : <input type="text" name ="name"><br><br>
+        Email : <input type="email" name ="email"><br><br>
+        Zip Code : <input type="number" name ="zip"><br><br>
+        Country : <select name="country"><br><br>
+            <option value="-1"selected>[Choose Yours]</option> 
+            <option value="1">INDIA</option> 
+            <option value="2">USA</option> 
+            <option value="3">UK</option> 
+        </select><br><br>
+        <button type="submit" value="submit">Submit</button>
+        
+    </form>
+    <div id="output"></div>
+</body>
+<script>
+    function validate(){
+        var flag = true;
+        if(document.myForm.name.value === ""){
+            alert("Please provide a valid input");
+            document.myForm.name.focus();
+            return false;
+
+        }
+        if(!validateEmailFormat()){
+           return false
+        }
+        if(document.myForm.zip.value =="" || isNaN(document.myForm.zip.value) || document.myForm.zip.value.length != 5){
+            alert("Enter Zip in ##### format");
+            document.myForm.zip.focus()
+            return false;
+        }
+        if(document.myForm.country.value == "-1"){
+            alert("Please select a country");
+            document.myForm.country.focus()
+            return false;
+        }
+            submitForm()
+            return false;
+
+        }
+
+        function validateEmailFormat(){
+            var email = document.myForm.email.value.trim();
+
+            if(email === ""){
+                alert("Please provide an email");
+                document.myForm.email.focus();
+                flag = false
+            }
+            if(!email.includes("@")){
+                alert("Email should include @")
+                document.myForm.email.focus()
+                return false;
+            }
+            return true;
+        }
+        function submitForm(){
+            var details = "Mr." + document.myForm.name.value + 
+            ". Please confirm your email " +  document.myForm.email.value;
+
+            if(confirm(details)){
+                document.getElementById('output').innerHTML = "Thank You"
+            }
+            else{
+                document.getElementById('output').innerHTML = "You Cancelled"
+            }
+        }
+    
+</script>
+</html>
