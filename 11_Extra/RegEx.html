@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #submitBtn{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form name="myForm">
+    Email : <input name="email"><br><br>
+    Website URL : <input name="url"><br><br>
+    Background Color : <input type="color" name="bgColor"><br><br>
+    Favourite Leap Year : <input name="leapYear"><br><br>
+    Message (max 5 characters) : <input name="message"><br><br>
+    Password* :<input type="password" name="password"><br><br>
+    <button type="button" id="submitBtn">Submit</button>
+    <button type="button" onclick="checkRegEX(event)">Check RegEx</button>
+    
+</form>
+</body>
+<script>
+    function checkRegEX(event){
+        event.preventDefault()
+        var email = document.myForm.email.value
+        var url = document.myForm.url.value
+        var color = document.myForm.bgColor.value
+        var message = document.myForm.message.value
+        var leap =  document.myForm.leapYear.value
+
+        if(!validateEmail()){
+            return false;
+        }
+        if(!urlValidate()){
+            return false;
+        }
+        if(!leapValidate()){
+            return false;
+        }
+        if(!messageValidate()){
+            return false;
+        }
+
+        if(leapValidate() && validateEmail() && urlValidate() && messageValidate()){
+            colorChange()
+            document.getElementById('submitBtn').style.display = "inline-block";
+        }else{
+            document.getElementById('submitBtn').style.display = "none";
+        }
+
+        
+        function validateEmail() {
+            const emailRegex = /^[a-zA-Z0-9_]+[.-]?[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-z]{2,3}$/
+            
+            if(!emailRegex.test(email.trim())){
+                alert("Please enter a valid email")
+                document.myForm.email.focus()
+                return false
+            }
+
+            return true;
+        }
+        function urlValidate(){
+            
+            const urlRegex = /^(https?|ftp):\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,3}$/            // /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/
+            if(!urlRegex.test(url.trim())){
+                alert("Please provide a valid URL");
+                document.myForm.url.focus();
+                return false;
+            }    
+            return true;                                                            
+        }
+
+        function leapValidate() {
+            if((leap % 4 === 0 && leap % 100 !== 0) || (leap % 400 === 0)){
+                return true
+            }else{
+                alert("This is not a leap year")
+                document.myForm.leapYear.focus()
+                return false
+            }
+            return true;    
+        }
+        function messageValidate() {
+            const messageRegex = /^[a-zA-Z0-9]{0,5}$/
+            if(!messageRegex.test(message)){
+                alert("Message should be under 5 characters")
+                document.myForm.message.focus()
+                return false
+            }
+            return true;    
+        }  
+        function colorChange(){
+            const colour =  document.myForm.bgColor.value
+            document.body.style.backgroundColor = colour;
+            return true;
+        }
+        
+    }
+</script>
+</html>

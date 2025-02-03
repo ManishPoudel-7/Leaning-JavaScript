@@ -50,7 +50,7 @@
         var gender = document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : "Not Selected";
         var dob = document.myForm.date.value;
         
-        // Area of Interest
+        
         var interests = [];
         var interestCheckboxes = document.getElementsByName('interest');
         for (var i = 0; i < interestCheckboxes.length; i++) {
@@ -61,14 +61,14 @@
         
         var city = document.myForm.city.value;
         
-        // Courses
+        
         var courses = [];
         var courseOptions = document.myForm.course.selectedOptions;
         for (var i = 0; i < courseOptions.length; i++) {
             courses.push(courseOptions[i].value);
         }
 
-        // Displaying the results
+    
         var resultText = `
             <strong>Name:</strong> ${uname} <br>
             <strong>Password:</strong> ${pass} <br>
@@ -80,7 +80,7 @@
             <strong>Courses:</strong> ${courses.length > 0 ? courses.join(', ') : 'None'} <br>
         `;
 
-        // Displaying the result in the 'result' div
+        
         document.getElementById('result').innerHTML = resultText;
     }
 </script>
