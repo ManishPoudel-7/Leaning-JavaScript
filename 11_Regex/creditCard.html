@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Credit Card:<select id="card">
+    <option value="ae">American Express</option>
+    <option value="dic">Diners Club</option>
+    <option value="d">Discover</option>
+    <option value="jcb">JCB</option>
+    <option value="mc">Master Card</option></select><br><br>
+
+    Credit Card Number : <input type="number" id="cardNumber"><br><br>
+
+    <button type="button" onclick=validateCard()>Validate</button>
+    <div id="output"></div>
+</body>
+<script>
+   
+    function validateCard(){
+        const type = document.getElementById('card').value
+        const cardNumber = document.getElementById('cardNumber').value.trim()
+        const output = document.getElementById('output')
+
+        const regExPatterns = {
+            ae : /^3[47][0-9]{13}$/,
+            dc : /^3(0[0-5][0-9]{11}|3(6|8)[0-9](13}))$/,
+            d : /^(6011[0-9]{12}|65[0-9]{14})$/,
+            jcb : /^((2131|1800)[0-9]{11}|(35)[0-9]{14})$/,
+            mc : /^5([1-5][0-9]{14})$/
+        }
+
+        const isValid = regExPatterns[type].test(cardNumber)
+
+        if(isValid){
+            output.innerHTML = `<span>Valid Credit Number</span>`
+        }else{
+            output.innerHTML = `<span>Invalid Credit Number</span>`
+        }   
+    }
+    
+</script>
+</html>
